@@ -1,8 +1,8 @@
 import Foundation
-#if os(iOS)
-import UIKit
-#elseif os(macOS)
+#if os(macOS)
 import AppKit
+#else
+import UIKit
 #endif
 
 @_cdecl("_GetTimeZone")
@@ -19,10 +19,10 @@ public func IOSCanOpenUrl(urlString: UnsafePointer<CChar>?) -> Bool {
             return false
         }
         
-    #if os(iOS)
-    return UIApplication.shared.canOpenURL(url)
-    #else
+    #if os(macOS)
     return NSWorkspace.shared.urlForApplication(toOpen: url) != nil
+    #else
+    return UIApplication.shared.canOpenURL(url)
     #endif
 }
 
